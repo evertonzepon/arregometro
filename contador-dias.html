@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Dias - Evander</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+
+        .result {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1.6;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: all 0.3s ease;
+            opacity: 1;
+        }
+
+        .days-number {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .result {
+                font-size: 1.2em;
+            }
+            
+            .days-number {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗓️ Arregômetro 🗓️</h1>
+        
+
+        
+        <div id="result" class="result">
+            <div>Evander está há:</div>
+            <div id="daysCount" class="days-number">0</div>
+            <div>dias</div>
+            <div>Sem arregar</div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAÇÃO: Defina aqui a data inicial (formato: AAAA-MM-DD)
+        const DATA_INICIAL = '2025-04-07'; // Altere esta data conforme necessário
+        
+        function calculateDays() {
+            const daysCountDiv = document.getElementById('daysCount');
+            
+            // Criar data de início a partir da configuração
+            const startDate = new Date(DATA_INICIAL);
+            const currentDate = new Date();
+            
+            // Verificar se a data é válida
+            if (isNaN(startDate.getTime())) {
+                console.error('Data inicial inválida no código!');
+                daysCountDiv.textContent = 'ERRO';
+                return;
+            }
+            
+            // Zerar as horas para cálculo preciso de dias
+            startDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0);
+            
+            // Calcular a diferença em milissegundos
+            const timeDifference = currentDate.getTime() - startDate.getTime();
+            
+            // Converter para dias
+            const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+            
+            if (daysDifference < 0) {
+                console.warn('A data inicial é no futuro!');
+                daysCountDiv.textContent = '0';
+                return;
+            }
+            
+            // Atualizar o resultado
+            daysCountDiv.textContent = daysDifference;
+        }
+        
+        // Calcular automaticamente quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateDays();
+        });
+        
+        // Atualizar o contador a cada minuto (opcional)
+        setInterval(calculateDays, 60000);
+    </script>
+</body>
+</html>
+
