@@ -35,12 +35,6 @@
                 radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         .container {
@@ -94,7 +88,6 @@
             from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
             to { text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff; }
         }
-
 
         .result {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 40, 0.9));
@@ -170,7 +163,40 @@
             }
         }
 
+        /* Estilo para a frase motivacional */
+        .motivational-quote {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(20, 20, 40, 0.7));
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-style: italic;
+            line-height: 1.6;
+            box-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.2),
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            animation: quotePulse 4s ease-in-out infinite alternate;
+        }
 
+        @keyframes quotePulse {
+            from { 
+                box-shadow: 
+                    0 0 10px rgba(255, 215, 0, 0.2),
+                    inset 0 0 15px rgba(0, 0, 0, 0.3);
+            }
+            to { 
+                box-shadow: 
+                    0 0 15px rgba(255, 215, 0, 0.3),
+                    inset 0 0 20px rgba(0, 0, 0, 0.3);
+            }
+        }
 
         @media (max-width: 600px) {
             .container {
@@ -190,6 +216,11 @@
             .days-number {
                 font-size: 3.5em;
             }
+
+            .motivational-quote {
+                font-size: 1em;
+                padding: 15px;
+            }
         }
 
         /* Efeitos adicionais para texto */
@@ -202,39 +233,37 @@
             letter-spacing: 0.05em;
         }
 
-        /* ...existing code... */
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+                padding: 10px;
+            }
 
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-        padding: 10px;
-    }
+            .container {
+                width: 100%;
+                margin: 0 auto;
+                padding: 10px;
+            }
 
-    .container {
-        width: 100%;
-        margin: 0 auto;
-        padding: 10px;
-    }
+            .button {
+                width: 100%;
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
 
-    .button {
-        width: 100%;
-        font-size: 16px;
-        padding: 10px;
-    }
-}
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 480px) {
+            .title {
+                font-size: 18px;
+                text-align: center;
+            }
 
-/* Ajustes para telas muito pequenas */
-@media (max-width: 480px) {
-    .title {
-        font-size: 18px;
-        text-align: center;
-    }
-
-    .button {
-        font-size: 14px;
-    }
-}
+            .button {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -247,11 +276,49 @@
             <div>dias</div>
             <div>SEM ARREGAR</div>
         </div>
+
+        <div id="motivationalQuote" class="motivational-quote">
+            <!-- Frase motivacional será inserida aqui -->
+        </div>
     </div>
 
     <script>
         // CONFIGURAÇÃO: Defina aqui a data inicial (formato: AAAA-MM-DD)
         const DATA_INICIAL = '2025-06-02'; // Altere esta data conforme necessário
+        
+        // Array de frases motivacionais
+        const FRASES_MOTIVACIONAIS = [
+            "💪 A persistência é o caminho do êxito!",
+            "🌟 Cada dia é uma nova oportunidade de crescer!",
+            "🚀 O sucesso é a soma de pequenos esforços repetidos dia após dia!",
+            "⭐ Acredite em si mesmo e tudo será possível!",
+            "🔥 A disciplina é a ponte entre objetivos e conquistas!",
+            "🎯 Foque no progresso, não na perfeição!",
+            "💎 Você é mais forte do que imagina!",
+            "🌈 Depois da tempestade, sempre vem o arco-íris!",
+            "🏆 Grandes conquistas exigem grande determinação!",
+            "✨ O futuro pertence àqueles que acreditam na beleza de seus sonhos!",
+            "🎪 A vida é uma aventura ousada ou não é nada!",
+            "🌱 Seja a mudança que você quer ver no mundo!",
+            "🎨 A criatividade é a inteligência se divertindo!",
+            "🌊 Seja como a água: persistente e adaptável!",
+            "🦅 Voe alto, mas mantenha os pés no chão!",
+            "🌸 Floresça onde você foi plantado!",
+            "⚡ A energia que você coloca no mundo volta para você!",
+            "🎭 A vida é um palco, seja o protagonista da sua história!",
+            "🌟 Brilhe com sua própria luz!",
+            "🎪 Transforme obstáculos em oportunidades!",
+            "🌺 Seja gentil consigo mesmo, você está fazendo o seu melhor!",
+            "🦋 Mudanças são difíceis no início, mas belas no final!",
+            "🌄 O topo da montanha está mais próximo a cada passo!",
+            "🎯 Mire na lua, mesmo errando você estará entre as estrelas!",
+            "🌟 Sua única limitação é você mesmo!",
+            "🔥 Acenda sua paixão e deixe ela te guiar!",
+            "🌈 Seja o arco-íris na tempestade de alguém!",
+            "💫 Você tem o poder de escrever sua própria história!",
+            "🎨 Pinte sua vida com as cores da alegria!",
+            "🌊 Navegue com coragem pelos mares da vida!"
+        ];
         
         function calculateDays() {
             const daysCountDiv = document.getElementById('daysCount');
@@ -287,9 +354,27 @@
             daysCountDiv.textContent = daysDifference;
         }
         
+        function getMotivationalQuote() {
+            const today = new Date();
+            // Usar o dia do ano como seed para garantir que a mesma frase apareça durante todo o dia
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+            
+            // Usar o dia do ano como índice para selecionar a frase
+            const quoteIndex = dayOfYear % FRASES_MOTIVACIONAIS.length;
+            
+            return FRASES_MOTIVACIONAIS[quoteIndex];
+        }
+        
+        function displayMotivationalQuote() {
+            const quoteDiv = document.getElementById('motivationalQuote');
+            const quote = getMotivationalQuote();
+            quoteDiv.textContent = quote;
+        }
+        
         // Calcular automaticamente quando a página carregar
         document.addEventListener('DOMContentLoaded', function() {
             calculateDays();
+            displayMotivationalQuote();
         });
         
         // Atualizar o contador a cada minuto (opcional)
